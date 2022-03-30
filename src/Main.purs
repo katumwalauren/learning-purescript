@@ -79,7 +79,6 @@ newOne num = num > 1
 firstOne ::  Maybe String
 firstOne = head arrayOfStrings
 
-
 -- use elem function 
 givenElement :: Array Int -> Boolean
 givenElement array = elem 5 array
