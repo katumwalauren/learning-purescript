@@ -16,9 +16,11 @@ import Prelude
 import Data.String as String
 import Effect (Effect)
 import Effect.Console (log)
+import Exp as Exp
 
 main :: Effect Unit
 main = do
+  Exp.myMain
   log $ show $ sum 1 2
   log $ addPrefix "mr." "Lukwago"
   log $ isOld 25
@@ -34,7 +36,61 @@ main = do
   log $ show $ line 2 4 
   --log $ isEven 8
   log $ show $ findLength arrayOfStrings
+  log $ show $ myPerson
+  --log $ show $ updatePerson
+  log $ show $ setAge 10 myPerson
+  log $ show $ setName "Lauren" myPerson
+  log $ show $ setNumberOfstudents 40 mySchool
   log "🍝"
+
+type Person = 
+  { name :: String 
+  , age :: Int 
+  }
+
+
+myPerson :: Person 
+myPerson = 
+  { name: "allan"
+  , age: 20 
+  }
+
+updatePerson :: Person -> Person 
+updatePerson human = human {  name = "Alex" } 
+
+setAge :: Int -> Person -> Person 
+setAge newAge human = human { age = newAge }
+
+-- write function that sets a name similar to setAge 
+setName :: String -> Person -> Person
+setName newName array = array {name = newName }
+
+getAge :: Person -> Int 
+getAge person = person.age 
+
+-- write a function to return name of a person 
+getName :: Person -> String
+getName person = person.name
+
+-- write a new record and its type to represent a school that has the following 
+-- field; numberOfstundents, schoolName and schoolDistrict
+type School =
+  { numberOfstundents :: Int
+  , schoolName :: String
+  , schoolDistrict :: String
+  }
+
+mySchool :: School
+mySchool=
+  { numberOfstundents: 30
+  , schoolName: "st Elizabeth"
+  , schoolDistrict: "wakiso"
+  }
+
+
+-- write a function that sets the number of students in a given a school 
+setNumberOfstudents :: Int -> School -> School
+setNumberOfstudents newNumber school = school { numberOfstundents = newNumber }
 
 sum :: Int -> Int -> Int 
 sum a b = a + b
