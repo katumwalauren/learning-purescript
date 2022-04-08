@@ -163,6 +163,7 @@ theCapital = map String.toUpper arrayOfStrings
 theDropped :: Array String -> Array String
 theDropped words = map dropLetters words
 
+
 dropLetters :: String -> String 
 dropLetters word' = String.drop 2 word'
 
