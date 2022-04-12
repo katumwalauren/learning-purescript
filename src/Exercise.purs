@@ -1,5 +1,6 @@
 module Exercise
   ( Person
+  , Result(..)
   , fullName
   , getFullName
   , girlChild
@@ -67,6 +68,8 @@ girlChild =
 persons :: Array Person
 persons = [thatPerson, girlChild]
 
+
+
 --get fullName of person
 
 fullName :: Person -> String
@@ -83,3 +86,105 @@ getFullName array = map fullName array
 
 
 -- find the average age
+--sum
+--find
+--getAverage :: Array Person -> Person
+--getAverage person = sum findAge person
+
+--findAge :: String -> Boolean
+--findAge  
+
+-- sort persons by age and return youngest person
+--sortby
+--head
+youngestPerson :: Array Person -> Maybe Person
+youngestPerson persons = head (sortPersonsByAge persons) 
+
+sortPersonsByAge :: Array Person -> Array Person 
+sortPersonsByAge persons' = sortBy comparePersonsByAge persons'
+
+comparePersonsByAge :: Person -> Person -> Ordering 
+comparePersonsByAge person1 person2 = compare person1.age person2.age
+
+sortPersonsByAge' :: Array Person -> Array Int 
+sortPersonsByAge' persons = sortAge (map getAge persons)
+ 
+getAge :: Person -> Int 
+getAge person = person.age  
+
+sortAge :: Array Int -> Array Int 
+sortAge ages  = sortBy compareLength ages
+
+compareLength :: Int -> Int -> Ordering 
+compareLength x y = compare x y 
+
+--use addable
+class Addable a where 
+  addable :: a -> a -> a 
+
+instance Addable Int where 
+  addable x y = x + y 
+
+-- implement type class instance for Number type 
+class Addable' a where 
+  addable' :: a -> a -> a 
+
+instance Addable' Number where
+  addable' c d = c + d
+
+--use show 
+class Show' a where 
+  show' :: a -> String 
+
+instance Show' String where 
+  show' x = x 
+
+-- implement Show' instance for Int 
+
+instance Show' Int where 
+  show' c = show c
+
+  --use joinable
+class Joinable a where 
+  join :: a -> a -> a 
+
+-- implement Joinable instance for string 
+class Joinable' a where 
+  join' :: a -> a -> a 
+
+instance Joinable' String where   
+  join' add word = add <> word 
+
+   
+-- write a function that sorts persons by the length of their firstName
+-- such that you return the person with the shortest firsName
+
+
+data Maybe' a = Nothing' | Just' a
+
+data Animal = Mammal | Reptile | Bird 
+
+
+data Result a = Success a | Failure String 
+
+isItReptile :: Animal -> Boolean
+isItReptile animal = case animal of 
+  Mammal -> false 
+  Reptile -> true 
+  Bird -> false 
+
+
+-- isReptile animal 
+
+animal :: Animal 
+animal = Mammal 
+
+bird :: Animal 
+bird = Bird 
+
+--- using case statements write a show instance for Animals 
+
+instance Show' Animal where 
+  show' animal = case animal of 
+  Mammal -> false
+  Reptile -> true
