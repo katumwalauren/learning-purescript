@@ -12,11 +12,11 @@ module Exercise
   )
   where
 
-import Prelude
-import Math
 import Data.Array
 import Data.Maybe
 import Data.Ord
+import Math
+import Prelude
 import Prelude
 
 import Data.String as String
@@ -212,3 +212,47 @@ reptile = Reptile
 domestic :: Animal
 domestic = Domestic
 
+
+data Orderable' = EQ | LT | GT 
+
+class Ord' a where 
+  compare' :: a -> a -> Orderable'
+
+instance Ord' Int where 
+   compare' x y 
+      | x > y     = GT 
+      | x < y     = LT 
+      | otherwise = EQ 
+
+instance Ord' Animal where 
+  compare' x y = case [x, y] of 
+    [Wild, Domestic] -> GT 
+    [Mammal, Wild]   -> LT 
+    _otherwise        -> EQ
+
+-- Ord instance for String 
+instance Ord' String where 
+   compare' x y 
+     | String.length x > String.length y = GT 
+     | String.length x < String.length y = LT
+     | otherwise                         = EQ
+
+class Eq' a where 
+  eq' :: a -> a -> Boolean 
+
+instance Eq' Int where 
+  eq' x y 
+    | x == y = true  
+    | otherwise = false 
+
+-- Eq instance for String 
+instance Eq' String where
+  eq' x y
+   | String.length x > String.length y = true
+   | otherwise                         = false
+
+-- Eq instance for Animal type
+instance Eq' Animal where 
+  eq' x y = case [x, y] of 
+    [Wild, Domestic] -> true 
+    _otherwise        -> false
