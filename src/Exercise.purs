@@ -166,7 +166,7 @@ sortPersonsByShortestName :: Array Person -> Array Person
 sortPersonsByShortestName persons'' = sortBy comparePersonsByShortestName persons''
 
 comparePersonsByShortestName :: Person -> Person -> Ordering 
-comparePersonsByShortestName personA personB = compare personA.firsName personB.firstName
+comparePersonsByShortestName personA personB = compare personA.firstName personB.firstName
 
 
 data Maybe' a = Nothing' | Just' a
@@ -181,7 +181,8 @@ isItReptile animal = case animal of
   Mammal -> false 
   Reptile -> true 
   Bird -> false 
-
+  Wild -> false
+  Domestic -> false
 
 -- isReptile animal 
 
@@ -193,14 +194,16 @@ bird = Bird
 
 --- using case statements write a show instance for Animals 
 
-class Animal' where 
+class IsWild where 
   isWild :: Animal -> Boolean
 
 instance Show Animal where 
-  show' animal = show' case animal of 
-  Reptile -> false
-  Wild -> true
-  Domestic -> false
+  show animal = case animal of 
+    Reptile -> "reptile"
+    Wild -> "wild"
+    Domestic -> "domestic"
+    Mammal -> "mammal"
+    Bird -> "bird"
 
   --isBird animal
 reptile :: Animal 
