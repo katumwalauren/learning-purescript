@@ -106,6 +106,7 @@ sortPersonsByAge persons' = sortBy comparePersonsByAge persons'
 comparePersonsByAge :: Person -> Person -> Ordering 
 comparePersonsByAge person1 person2 = compare person1.age person2.age
 
+--wen age is alredy got or sorted
 sortPersonsByAge' :: Array Person -> Array Int 
 sortPersonsByAge' persons = sortAge (map getAge persons)
  
@@ -158,11 +159,19 @@ instance Joinable' String where
    
 -- write a function that sorts persons by the length of their firstName
 -- such that you return the person with the shortest firsName
+shortestNameOfPerson :: Array Person -> Maybe Person
+shortestNameOfPerson persons = head (sortPersonsByShortestName persons) 
+
+sortPersonsByShortestName :: Array Person -> Array Person 
+sortPersonsByShortestName persons'' = sortBy comparePersonsByShortestName persons''
+
+comparePersonsByShortestName :: Person -> Person -> Ordering 
+comparePersonsByShortestName personA personB = compare personA.firsName personB.firstName
 
 
 data Maybe' a = Nothing' | Just' a
 
-data Animal = Mammal | Reptile | Bird 
+data Animal = Mammal | Reptile | Bird | Domestic | Wild
 
 
 data Result a = Success a | Failure String 
@@ -184,7 +193,19 @@ bird = Bird
 
 --- using case statements write a show instance for Animals 
 
-instance Show' Animal where 
-  show' animal = case animal of 
-  Mammal -> false
-  Reptile -> true
+class Animal' where 
+  isWild :: Animal -> Boolean
+
+instance Show Animal where 
+  show' animal = show' case animal of 
+  Reptile -> false
+  Wild -> true
+  Domestic -> false
+
+  --isBird animal
+reptile :: Animal 
+reptile = Reptile
+
+domestic :: Animal
+domestic = Domestic
+
