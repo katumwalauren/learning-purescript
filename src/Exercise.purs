@@ -254,5 +254,52 @@ instance Eq' String where
 -- Eq instance for Animal type
 instance Eq' Animal where 
   eq' x y = case [x, y] of 
-    [Wild, Domestic] -> true 
-    _otherwise        -> false
+    [Wild, Wild]     -> true 
+    [Wild, Domestic] -> false
+    _otherwise       -> false
+
+--instance for maybe
+instance Functor' Maybe' where 
+  map' f maybeValue = case maybeValue of 
+    Just' value -> Just' (f value) 
+    Nothing'    -> Nothing'  
+    
+--changing first item
+changeFirstItemToString :: Array Int -> Maybe String 
+changeFirstItemToString array = map show (head array) 
+
+-- functor 
+--The functor class is used for mapping values that are in some kind of container 
+
+-- An Array is a container of some values. i.e Array Int. Is a container of Ints 
+
+--- Another example of a container is the Maybe data type 
+
+maybeAge :: Maybe' Int 
+maybeAge = Just' 13
+
+noAge :: Maybe' Int 
+noAge = Nothing'
+
+
+
+class Functor' f where 
+  map' :: forall a b . ( a -> b) -> f a -> f b
+
+--instance Functor' Maybe' where   
+
+data Result' a = Success' a | Failure' String 
+
+getData :: String -> Result' String
+getData input = case input of 
+  "good" -> Success' "it ran well"
+  _otherwise -> Failure' "wrong"   
+
+-- array = 1 : 1 : []
+
+-- instance Functor' Array where 
+--   map' f someArray = case someArray of 
+--     (x : xs) -> f x : map' f xs 
+--     []       -> []
+
+
