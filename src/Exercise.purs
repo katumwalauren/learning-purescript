@@ -256,15 +256,9 @@ instance Eq' Animal where
   eq' x y = case [x, y] of 
     [Wild, Wild]     -> true 
     [Wild, Domestic] -> false
-    _otherwise       -> false
-
---instance for maybe
-instance Functor' Maybe' where 
-  map' f maybeValue = case maybeValue of 
-    Just' value -> Just' (f value) 
-    Nothing'    -> Nothing'  
+    _otherwise       -> false 
     
---changing first item
+--changing first item of int -> string
 changeFirstItemToString :: Array Int -> Maybe String 
 changeFirstItemToString array = map show (head array) 
 
@@ -303,3 +297,20 @@ getData input = case input of
 --     []       -> []
 
 
+-- write Functor instance for Result 
+instance Functor' Result' where
+  map' f maybeInput = case maybeInput of
+    Success' string    -> Success' (f string)
+    Failure'  string  -> Failure' string
+
+-- write Functor instance for Maybe 
+instance Functor' Maybe' where 
+  map' f maybeValue = case maybeValue of 
+    Just' value -> Just' (f value) 
+    Nothing'    -> Nothing'
+
+-- change last item in an array of ints to string 
+-- such that you return a Maybe of string 
+
+changeLastItemToString :: Array Int -> Maybe String 
+changeLastItemToString array = map show (last array)
